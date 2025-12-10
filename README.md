@@ -477,3 +477,6 @@ For issues or questions:
 
 **Built for automated extraction of 5 years of historical monthly factsheet data with production-ready quality and comprehensive analysis capabilities.**
 
+
+file:///Users/gunasekhardevineni/Downloads/Automated%20Financals/frontend/index.html
+
