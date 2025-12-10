@@ -1,12 +1,19 @@
 # Vercel ignore file - exclude large files from deployment
 
 # Large PDF files (should be uploaded by users, not deployed)
-factsheet_archive/*.pdf
-uploads/*
-output/*
+factsheet_archive/**
+uploads/**
+output/**
+logs/**
 
-# Logs
-logs/*.log
+# All PDFs
+*.pdf
+
+# Logs and output
+*.log
+*.csv
+*.json
+!mappings/*.json
 
 # Python cache
 __pycache__/
@@ -31,10 +38,14 @@ ENV/
 .DS_Store
 Thumbs.db
 
-# Jupyter
-.ipynb_checkpoints/
+# Jupyter notebooks (large, not needed for API)
+notebooks/**
 
-# Large data files
-*.pdf
-!frontend/*.html
+# Environment files
+.env
+.env.local
+
+# Documentation (optional, reduce size)
+DEPLOYMENT_NOTES.md
+TROUBLESHOOTING_EXTRACTION.md
 

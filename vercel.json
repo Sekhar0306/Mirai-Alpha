@@ -1,15 +1,32 @@
 {
   "functions": {
     "api/main.py": {
-      "maxDuration": 60
+      "maxDuration": 60,
+      "memory": 3008
     }
   },
   "ignore": [
-    "factsheet_archive/*.pdf",
-    "uploads/*",
-    "output/*",
-    "logs/*.log",
-    "*.pdf"
+    "factsheet_archive/**",
+    "uploads/**",
+    "output/**",
+    "logs/**",
+    "notebooks/**",
+    "*.pdf",
+    "*.log",
+    "*.csv",
+    "*.json",
+    "!mappings/*.json",
+    "__pycache__/**",
+    "*.pyc",
+    ".env",
+    ".env.local",
+    "DEPLOYMENT_NOTES.md",
+    "TROUBLESHOOTING_EXTRACTION.md",
+    "tabula-py",
+    "pytesseract",
+    "pdf2image",
+    "Pillow",
+    "pymupdf"
   ]
 }
 
