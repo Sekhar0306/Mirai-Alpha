@@ -1,0 +1,15 @@
+{
+  "functions": {
+    "api/main.py": {
+      "maxDuration": 60
+    }
+  },
+  "ignore": [
+    "factsheet_archive/*.pdf",
+    "uploads/*",
+    "output/*",
+    "logs/*.log",
+    "*.pdf"
+  ]
+}
+

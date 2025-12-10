@@ -1,0 +1,40 @@
+# Vercel ignore file - exclude large files from deployment
+
+# Large PDF files (should be uploaded by users, not deployed)
+factsheet_archive/*.pdf
+uploads/*
+output/*
+
+# Logs
+logs/*.log
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Large data files
+*.pdf
+!frontend/*.html
+

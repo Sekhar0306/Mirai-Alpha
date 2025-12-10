@@ -30,8 +30,12 @@ output/*
 !output/.gitkeep
 logs/*
 !logs/.gitkeep
-factsheet_archive/*
+
+# Large PDF files - exclude from git and deployment
+factsheet_archive/*.pdf
 !factsheet_archive/.gitkeep
+*.pdf
+!frontend/*.html
 
 # IDE
 .vscode/
