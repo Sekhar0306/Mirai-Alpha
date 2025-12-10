@@ -12,6 +12,17 @@ import re
 
 from config import OPENAI_API_KEY, OPENAI_MODEL, OPENAI_MAX_TOKENS, USE_LLM_EXTRACTION
 
+# Also try loading from .env directly as fallback
+try:
+    from dotenv import load_dotenv
+    import os
+    load_dotenv()
+    # Use .env value if config didn't load it
+    if not OPENAI_API_KEY:
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+except:
+    pass
+
 logger = logging.getLogger(__name__)
 
 
@@ -25,14 +36,26 @@ class LLMExtractor:
         if not USE_LLM_EXTRACTION:
             logger.debug("LLM extraction is disabled in config")
             return
-            
-        if not OPENAI_API_KEY or OPENAI_API_KEY == "":
+        
+        # Get API key - try multiple sources
+        api_key = OPENAI_API_KEY
+        if not api_key or api_key == "":
+            # Try loading from .env directly
+            try:
+                from dotenv import load_dotenv
+                import os
+                load_dotenv()
+                api_key = os.getenv("OPENAI_API_KEY", "")
+            except:
+                pass
+        
+        if not api_key or api_key == "":
             logger.warning("OpenAI API key not configured")
             return
             
         try:
             # Initialize OpenAI client
-            self.client = OpenAI(api_key=OPENAI_API_KEY)
+            self.client = OpenAI(api_key=api_key)
             logger.debug("OpenAI client initialized successfully")
         except Exception as e:
             logger.error(f"Failed to initialize OpenAI client: {str(e)}")

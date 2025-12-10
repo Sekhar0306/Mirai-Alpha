@@ -29,14 +29,15 @@ OPENAI_MODEL = "gpt-4o-mini"
 OPENAI_MAX_TOKENS = 4000
 USE_LLM_EXTRACTION = True  # Can disable if you don't want to use LLM
 
-# Load from .env file if it exists
+# Load from .env file if it exists (do this FIRST before setting OPENAI_API_KEY)
 try:
     from dotenv import load_dotenv
-    load_dotenv()
-    if not OPENAI_API_KEY:
-        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+    load_dotenv()  # Load .env file
 except ImportError:
     pass  # python-dotenv not required, but helpful
+
+# Now get the API key (after .env is loaded)
+OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "") or OPENAI_API_KEY
 
 # Validation settings
 MAX_AUM_TOLERANCE = 0.05  # Allow 5% difference from 100% (rounding errors)
