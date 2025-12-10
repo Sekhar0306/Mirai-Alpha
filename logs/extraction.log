@@ -1,0 +1,46 @@
+2025-12-11 01:10:50,589 - api.main - INFO - Processing: amapr2011repo.pdf
+2025-12-11 01:10:50,927 - extractors.pdf_extractor - INFO - Processing: amapr2011repo.pdf
+2025-12-11 01:10:50,928 - extractors.llm_extractor - WARNING - OpenAI API key not configured
+2025-12-11 01:10:50,928 - extractors.llm_extractor - WARNING - OpenAI API key not configured, skipping LLM extraction
+2025-12-11 01:10:51,300 - tabula.backend - WARNING - Error importing jpype dependencies. Fallback to subprocess.
+2025-12-11 01:10:51,300 - tabula.backend - WARNING - No module named 'jpype'
+2025-12-11 01:10:51,316 - tabula.backend - ERROR - Error from tabula-java:
+The operation couldn’t be completed. Unable to locate a Java Runtime.
+Please visit http://www.java.com for information on installing Java.
+
+
+
+2025-12-11 01:10:51,316 - extractors.pdf_extractor - ERROR - tabula extraction failed: Command '['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/gunasekhardevineni/Library/Python/3.9/lib/python/site-packages/tabula/tabula-1.0.5-jar-with-dependencies.jar', '--pages', 'all', '--guess', '--format', 'JSON', '/Users/gunasekhardevineni/Downloads/Automated Financals/uploads/amapr2011repo.pdf']' returned non-zero exit status 1.
+2025-12-11 01:10:51,320 - extractors.pdf_extractor - ERROR - OCR extraction failed: Unable to get page count. Is poppler installed and in PATH?
+2025-12-11 01:10:51,321 - extractors.pdf_extractor - ERROR - Couldn't extract from amapr2011repo.pdf
+2025-12-11 01:10:51,321 - extractors.pdf_extractor - INFO - Tip: Make sure it's a complete factsheet with holdings table, not just a summary
+2025-12-11 01:11:19,181 - api.main - INFO - Processing: amapr2011repo.pdf
+2025-12-11 01:11:19,521 - extractors.pdf_extractor - INFO - Processing: amapr2011repo.pdf
+2025-12-11 01:11:19,521 - extractors.llm_extractor - WARNING - OpenAI API key not configured
+2025-12-11 01:11:19,521 - extractors.llm_extractor - WARNING - OpenAI API key not configured, skipping LLM extraction
+2025-12-11 01:11:19,896 - tabula.backend - WARNING - Error importing jpype dependencies. Fallback to subprocess.
+2025-12-11 01:11:19,896 - tabula.backend - WARNING - No module named 'jpype'
+2025-12-11 01:11:19,909 - tabula.backend - ERROR - Error from tabula-java:
+The operation couldn’t be completed. Unable to locate a Java Runtime.
+Please visit http://www.java.com for information on installing Java.
+
+
+
+2025-12-11 01:11:19,910 - extractors.pdf_extractor - ERROR - tabula extraction failed: Command '['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/gunasekhardevineni/Library/Python/3.9/lib/python/site-packages/tabula/tabula-1.0.5-jar-with-dependencies.jar', '--pages', 'all', '--guess', '--format', 'JSON', '/Users/gunasekhardevineni/Downloads/Automated Financals/uploads/amapr2011repo.pdf']' returned non-zero exit status 1.
+2025-12-11 01:11:19,913 - extractors.pdf_extractor - ERROR - OCR extraction failed: Unable to get page count. Is poppler installed and in PATH?
+2025-12-11 01:11:19,914 - extractors.pdf_extractor - ERROR - Couldn't extract from amapr2011repo.pdf
+2025-12-11 01:11:19,915 - extractors.pdf_extractor - INFO - Tip: Make sure it's a complete factsheet with holdings table, not just a summary
+2025-12-11 01:11:26,175 - api.main - INFO - Processing: Axis Value Fund update- Oct 2025.pdf
+2025-12-11 01:11:26,385 - extractors.pdf_extractor - INFO - Processing: Axis Value Fund update- Oct 2025.pdf
+2025-12-11 01:11:26,386 - extractors.llm_extractor - WARNING - OpenAI API key not configured
+2025-12-11 01:11:26,386 - extractors.llm_extractor - WARNING - OpenAI API key not configured, skipping LLM extraction
+2025-12-11 01:11:26,588 - tabula.backend - ERROR - Error from tabula-java:
+The operation couldn’t be completed. Unable to locate a Java Runtime.
+Please visit http://www.java.com for information on installing Java.
+
+
+
+2025-12-11 01:11:26,588 - extractors.pdf_extractor - ERROR - tabula extraction failed: Command '['java', '-Djava.awt.headless=true', '-Dfile.encoding=UTF8', '-jar', '/Users/gunasekhardevineni/Library/Python/3.9/lib/python/site-packages/tabula/tabula-1.0.5-jar-with-dependencies.jar', '--pages', 'all', '--guess', '--format', 'JSON', '/Users/gunasekhardevineni/Downloads/Automated Financals/uploads/Axis Value Fund update- Oct 2025.pdf']' returned non-zero exit status 1.
+2025-12-11 01:11:26,591 - extractors.pdf_extractor - ERROR - OCR extraction failed: Unable to get page count. Is poppler installed and in PATH?
+2025-12-11 01:11:26,591 - extractors.pdf_extractor - ERROR - Couldn't extract from Axis Value Fund update- Oct 2025.pdf
+2025-12-11 01:11:26,591 - extractors.pdf_extractor - INFO - Tip: Make sure it's a complete factsheet with holdings table, not just a summary

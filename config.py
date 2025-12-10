@@ -23,10 +23,20 @@ MAX_PAGES_TO_PROCESS = 50  # Don't process huge PDFs (usually not needed)
 
 # OpenAI API - using GPT-4o mini (cheaper than GPT-4)
 # Set OPENAI_API_KEY environment variable or create .env file
+# Get your key from: https://platform.openai.com/api-keys
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 OPENAI_MODEL = "gpt-4o-mini"
 OPENAI_MAX_TOKENS = 4000
 USE_LLM_EXTRACTION = True  # Can disable if you don't want to use LLM
+
+# Load from .env file if it exists
+try:
+    from dotenv import load_dotenv
+    load_dotenv()
+    if not OPENAI_API_KEY:
+        OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
+except ImportError:
+    pass  # python-dotenv not required, but helpful
 
 # Validation settings
 MAX_AUM_TOLERANCE = 0.05  # Allow 5% difference from 100% (rounding errors)

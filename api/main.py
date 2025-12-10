@@ -109,9 +109,17 @@ async def extract_single_pdf(file: UploadFile = File(..., description="PDF facts
         holdings = extractor.extract()
         
         if not holdings:
-            error_detail = "Could not extract holdings from PDF. "
-            error_detail += "This might be a summary factsheet without full holdings table. "
-            error_detail += "Try downloading the complete monthly factsheet from the AMC website."
+            # Provide more helpful error message
+            error_detail = "Could not extract holdings from PDF.\n\n"
+            error_detail += "Possible reasons:\n"
+            error_detail += "1. This might be a summary/update factsheet without full holdings table\n"
+            error_detail += "2. Missing dependencies (Java for tabula, Poppler for OCR)\n"
+            error_detail += "3. OpenAI API key not configured (LLM extraction unavailable)\n\n"
+            error_detail += "Solutions:\n"
+            error_detail += "- Download the complete monthly factsheet from the AMC website (should have 'Portfolio Holdings' table)\n"
+            error_detail += "- Set OPENAI_API_KEY environment variable for LLM extraction\n"
+            error_detail += "- Install Java: brew install openjdk (for tabula extraction)\n"
+            error_detail += "- Install Poppler: brew install poppler (for OCR extraction)"
             raise HTTPException(status_code=400, detail=error_detail)
         
         # Clean up and normalize the data

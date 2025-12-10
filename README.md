@@ -291,6 +291,23 @@ date,amc,fund_name,security_name,isin,sector,market_value,%_of_aum,quantity
 
 ## ⚙️ Configuration
 
+### Environment Variables
+
+**Important:** Set your OpenAI API key for LLM extraction (recommended):
+
+```bash
+# macOS/Linux
+export OPENAI_API_KEY="your-api-key-here"
+
+# Or create a .env file (copy from .env.example)
+cp .env.example .env
+# Then edit .env and add your API key
+```
+
+The system will work without it, but LLM extraction (which handles complex PDFs best) won't be available.
+
+### Config File
+
 Edit `config.py` to customize:
 
 - **Extraction Methods**: Priority order of extraction methods
