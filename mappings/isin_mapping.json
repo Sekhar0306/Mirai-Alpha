@@ -1,0 +1,8 @@
+{
+  "comment": "ISIN mapping for common securities. This file can be populated with known ISIN mappings to handle variations in ISIN representation across different AMCs.",
+  "example_mappings": {
+    "IN0020101010": "IN0020101010",
+    "INE002A01018": "INE002A01018"
+  }
+}
+

@@ -1,0 +1,111 @@
+{
+  "Financial Services": [
+    "Banking",
+    "Financial",
+    "NBFC",
+    "Non-Banking Financial Company",
+    "Insurance",
+    "Bank",
+    "Private Bank",
+    "Public Bank",
+    "Financial Institution"
+  ],
+  "Technology": [
+    "IT",
+    "Information Technology",
+    "Software",
+    "Technology",
+    "Telecom",
+    "Telecommunications",
+    "IT Services",
+    "Software Services"
+  ],
+  "Healthcare": [
+    "Pharma",
+    "Pharmaceutical",
+    "Healthcare",
+    "Medical",
+    "Pharmaceuticals",
+    "Drugs",
+    "Medicine"
+  ],
+  "Consumer Goods": [
+    "FMCG",
+    "Fast Moving Consumer Goods",
+    "Consumer",
+    "Retail",
+    "Consumer Durables",
+    "Consumer Non-Durables"
+  ],
+  "Energy": [
+    "Oil",
+    "Gas",
+    "Power",
+    "Energy",
+    "Oil & Gas",
+    "Petroleum",
+    "Refineries"
+  ],
+  "Industrials": [
+    "Industrial",
+    "Engineering",
+    "Infrastructure",
+    "Capital Goods",
+    "Construction",
+    "Engineering & Construction"
+  ],
+  "Materials": [
+    "Cement",
+    "Steel",
+    "Metals",
+    "Chemicals",
+    "Basic Materials",
+    "Ferrous Metals",
+    "Non-Ferrous Metals"
+  ],
+  "Automotive": [
+    "Auto",
+    "Automobile",
+    "Transportation",
+    "Auto Ancillaries",
+    "Auto Components"
+  ],
+  "Real Estate": [
+    "Realty",
+    "Real Estate",
+    "Construction",
+    "Real Estate Development"
+  ],
+  "Utilities": [
+    "Utilities",
+    "Power",
+    "Electric",
+    "Electric Utilities"
+  ],
+  "Consumer Services": [
+    "Services",
+    "Hospitality",
+    "Entertainment",
+    "Media",
+    "Media & Entertainment",
+    "Travel & Leisure"
+  ],
+  "Textiles": [
+    "Textile",
+    "Textiles",
+    "Apparel",
+    "Garments"
+  ],
+  "Agriculture": [
+    "Agri",
+    "Agriculture",
+    "Agrochemicals",
+    "Fertilizers"
+  ],
+  "Metals & Mining": [
+    "Mining",
+    "Metals & Mining",
+    "Minerals"
+  ]
+}
+

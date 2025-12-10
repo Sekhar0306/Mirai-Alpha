@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Axis Mutual Fund - Factsheet Extraction System</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background: #f5f5f5;
+            min-height: 100vh;
+            padding: 0;
+            margin: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #8B0000;
+            color: white;
+            padding: 30px 40px;
+            border-bottom: 4px solid #A52A2A;
+        }
+
+        .header-content {
+            text-align: center;
+        }
+
+        .header h1 {
+            font-size: 2em;
+            margin: 0 0 8px 0;
+            font-weight: 600;
+        }
+
+        .header p {
+            font-size: 1em;
+            opacity: 0.95;
+            margin: 0;
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .upload-section {
+            border: 2px dashed #8B0000;
+            border-radius: 8px;
+            padding: 40px;
+            text-align: center;
+            background: #fafafa;
+            margin-bottom: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .upload-section:hover {
+            border-color: #A52A2A;
+            background: #f5f5f5;
+        }
+
+        .upload-section.dragover {
+            border-color: #A52A2A;
+            background: #f0f0f0;
+            border-width: 3px;
+        }
+
+        .file-input-wrapper {
+            position: relative;
+            display: inline-block;
+        }
+
+        input[type="file"] {
+            position: absolute;
+            opacity: 0;
+            width: 100%;
+            height: 100%;
+            cursor: pointer;
+        }
+
+        .upload-button {
+            display: inline-block;
+            padding: 12px 35px;
+            background: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1em;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .upload-button:hover {
+            background: #A52A2A;
+            box-shadow: 0 2px 8px rgba(139, 0, 0, 0.3);
+        }
+
+        .file-list {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .file-item {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border-left: 4px solid #8B0000;
+            border: 1px solid #e0e0e0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .file-name {
+            font-weight: 500;
+            color: #333;
+        }
+
+        .file-size {
+            color: #666;
+            font-size: 0.9em;
+        }
+
+        .remove-file {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 6px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .remove-file:hover {
+            background: #c82333;
+        }
+
+        .extract-button {
+            width: 100%;
+            padding: 16px;
+            background: #8B0000;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 1.1em;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: all 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .extract-button:hover:not(:disabled) {
+            background: #A52A2A;
+            box-shadow: 0 4px 12px rgba(139, 0, 0, 0.3);
+        }
+
+        .extract-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .progress {
+            display: none;
+            margin-top: 20px;
+            padding: 20px;
+            background: #fafafa;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .progress.active {
+            display: block;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e0e0e0;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #8B0000;
+            width: 0%;
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+
+        .results {
+            display: none;
+            margin-top: 30px;
+            padding: 30px;
+            background: #fafafa;
+            border-radius: 4px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .results.active {
+            display: block;
+        }
+
+        .result-item {
+            background: white;
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+            border-left: 4px solid #8B0000;
+            border: 1px solid #e0e0e0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-item h3 {
+            color: #8B0000;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .download-button {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #8B0000;
+            color: white;
+            text-decoration: none;
+            border-radius: 4px;
+            margin: 5px;
+            transition: all 0.3s;
+            font-weight: 500;
+        }
+
+        .download-button:hover {
+            background: #A52A2A;
+            box-shadow: 0 2px 6px rgba(139, 0, 0, 0.3);
+        }
+
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #856404;
+        }
+
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            border-left: 4px solid #dc3545;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 8px;
+            color: #721c24;
+        }
+
+        .info-section {
+            background: #fafafa;
+            padding: 30px;
+            border-radius: 4px;
+            margin-top: 30px;
+            border: 1px solid #e0e0e0;
+        }
+
+        .info-section h2 {
+            color: #8B0000;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-section li {
+            padding: 10px;
+            margin: 5px 0;
+            background: white;
+            border-radius: 4px;
+            border-left: 3px solid #8B0000;
+            border: 1px solid #e0e0e0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="header-content">
+                <h1>Factsheet Extraction System</h1>
+                <p>Extract structured holdings data from mutual fund factsheet PDFs</p>
+            </div>
+        </div>
+
+        <div class="content">
+            <div class="upload-section" id="uploadSection">
+                <h2 style="color: #8B0000; margin-bottom: 20px; font-weight: 600;">Upload Factsheet PDFs</h2>
+                <p style="color: #666; margin-bottom: 30px;">
+                    Upload one or multiple PDF files. The system will automatically extract holdings data.
+                </p>
+                <div class="file-input-wrapper">
+                    <input type="file" id="fileInput" multiple accept=".pdf" />
+                    <button class="upload-button">Choose PDF Files</button>
+                </div>
+                <div class="file-list" id="fileList"></div>
+            </div>
+
+            <button class="extract-button" id="extractButton" disabled>
+                Extract Holdings Data
+            </button>
+
+            <div class="progress" id="progress">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill">0%</div>
+                </div>
+                <p id="progressText">Ready to process...</p>
+            </div>
+
+            <div class="results" id="results"></div>
+
+            <div class="info-section">
+                <h2>What This System Does</h2>
+                <ul>
+                    <li>Extracts holdings data from PDF factsheets using multiple methods</li>
+                    <li>Normalizes data across different AMC formats</li>
+                    <li>Validates AUM percentages and data consistency</li>
+                    <li>Exports structured CSV and JSON files</li>
+                    <li>Handles multi-page tables and irregular layouts</li>
+                    <li>Maps sectors and ISINs for consistency</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const fileInput = document.getElementById('fileInput');
+        const fileList = document.getElementById('fileList');
+        const extractButton = document.getElementById('extractButton');
+        const uploadSection = document.getElementById('uploadSection');
+        const progress = document.getElementById('progress');
+        const progressFill = document.getElementById('progressFill');
+        const progressText = document.getElementById('progressText');
+        const results = document.getElementById('results');
+
+        let selectedFiles = [];
+
+        // File input change
+        fileInput.addEventListener('change', (e) => {
+            handleFiles(Array.from(e.target.files));
+        });
+
+        // Drag and drop
+        uploadSection.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadSection.classList.add('dragover');
+        });
+
+        uploadSection.addEventListener('dragleave', () => {
+            uploadSection.classList.remove('dragover');
+        });
+
+        uploadSection.addEventListener('drop', (e) => {
+            e.preventDefault();
+            uploadSection.classList.remove('dragover');
+            handleFiles(Array.from(e.dataTransfer.files).filter(f => f.name.endsWith('.pdf')));
+        });
+
+        function handleFiles(files) {
+            selectedFiles = files;
+            updateFileList();
+            extractButton.disabled = files.length === 0;
+        }
+
+        function updateFileList() {
+            fileList.innerHTML = '';
+            selectedFiles.forEach((file, index) => {
+                const fileItem = document.createElement('div');
+                fileItem.className = 'file-item';
+                fileItem.innerHTML = `
+                    <div>
+                        <div class="file-name">${file.name}</div>
+                        <div class="file-size">${(file.size / 1024).toFixed(2)} KB</div>
+                    </div>
+                    <button class="remove-file" onclick="removeFile(${index})">Remove</button>
+                `;
+                fileList.appendChild(fileItem);
+            });
+        }
+
+        function removeFile(index) {
+            selectedFiles.splice(index, 1);
+            updateFileList();
+            extractButton.disabled = selectedFiles.length === 0;
+        }
+
+        // Extract button
+        extractButton.addEventListener('click', async () => {
+            if (selectedFiles.length === 0) return;
+
+            // Show progress
+            progress.classList.add('active');
+            results.classList.remove('active');
+            extractButton.disabled = true;
+            progressFill.style.width = '0%';
+            progressFill.textContent = '0%';
+            progressText.textContent = 'Initializing...';
+
+            try {
+                // Use appropriate endpoint
+                let formData, endpoint;
+                if (selectedFiles.length === 1) {
+                    endpoint = '/extract';
+                    formData = new FormData();
+                    formData.append('file', selectedFiles[0]);
+                } else {
+                    endpoint = '/batch_extract';
+                    formData = new FormData();
+                    selectedFiles.forEach(file => {
+                        formData.append('files', file);
+                    });
+                }
+
+                progressFill.style.width = '50%';
+                progressFill.textContent = '50%';
+                progressText.textContent = 'Extracting data from PDFs...';
+                
+                const response = await fetch(`http://localhost:8000${endpoint}`, {
+                    method: 'POST',
+                    body: formData
+                });
+
+                progressFill.style.width = '90%';
+                progressFill.textContent = '90%';
+                progressText.textContent = 'Processing results...';
+
+                const data = await response.json();
+
+                if (!response.ok) {
+                    throw new Error(data.detail || 'Extraction failed');
+                }
+
+                progressFill.style.width = '100%';
+                progressFill.textContent = '100%';
+                progressText.textContent = 'Complete!';
+
+                // Show results
+                displayResults(data);
+
+            } catch (error) {
+                progressText.textContent = 'Error occurred';
+                results.innerHTML = `
+                    <div class="error">
+                        <h3>Extraction Failed</h3>
+                        <p>${error.message}</p>
+                    </div>
+                `;
+                results.classList.add('active');
+            } finally {
+                extractButton.disabled = false;
+            }
+        });
+
+        function displayResults(data) {
+            let html = '';
+
+            if (data.success) {
+                html += `
+                    <div class="success">
+                        <h3>Extraction Successful!</h3>
+                        <p><strong>Holdings Extracted:</strong> ${data.holdings_count}</p>
+                        <p><strong>Message:</strong> ${data.message}</p>
+                    </div>
+                `;
+
+                if (data.warnings && data.warnings.length > 0) {
+                    html += '<div class="warning"><h3>Warnings</h3><ul>';
+                    data.warnings.forEach(warning => {
+                        html += `<li>${warning}</li>`;
+                    });
+                    html += '</ul></div>';
+                }
+
+                if (data.output_files && data.output_files.length > 0) {
+                    html += '<div class="result-item"><h3>Download Extracted Data</h3>';
+                    data.output_files.forEach(filename => {
+                        html += `
+                            <a href="http://localhost:8000/download/${filename}" 
+                               class="download-button" 
+                               download>
+                                Download ${filename}
+                            </a>
+                        `;
+                    });
+                    html += '</div>';
+                }
+
+                if (data.validation_result) {
+                    const totalPct = data.validation_result.total_percentage;
+                    const totalValue = data.validation_result.total_value;
+                    const pctDisplay = (totalPct !== null && totalPct !== undefined) 
+                        ? `${Number(totalPct).toFixed(2)}%` 
+                        : 'N/A';
+                    const valueDisplay = (totalValue !== null && totalValue !== undefined && totalValue > 0)
+                        ? `₹${Number(totalValue).toLocaleString('en-IN')}`
+                        : 'N/A';
+                    
+                    html += `
+                        <div class="result-item">
+                            <h3>Validation Results</h3>
+                            <p><strong>Total % of AUM:</strong> ${pctDisplay}</p>
+                            <p><strong>Total Value:</strong> ${valueDisplay}</p>
+                            <p><strong>Holdings Count:</strong> ${data.validation_result.holdings_count || 0}</p>
+                            ${totalPct !== null && totalPct !== undefined && Math.abs(totalPct - 100) > 5 
+                                ? `<p style="color: #ffc107;"><strong>Warning:</strong> AUM percentage is ${Math.abs(totalPct - 100).toFixed(2)}% away from expected 100%</p>`
+                                : totalPct !== null && totalPct !== undefined
+                                ? `<p style="color: #28a745;"><strong>AUM Validation:</strong> Passed</p>`
+                                : ''}
+                        </div>
+                    `;
+                }
+            } else {
+                html += `
+                    <div class="error">
+                        <h3>Extraction Failed</h3>
+                        <p>${data.message || 'Unknown error occurred'}</p>
+                    </div>
+                `;
+            }
+
+            results.innerHTML = html;
+            results.classList.add('active');
+        }
+    </script>
+</body>
+</html>
+
